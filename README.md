@@ -46,14 +46,19 @@ Express.js Server
 
 ## 🧠 FRONTEND (React + Material UI)
 
-### 4. UI Components
+### 4. Routing
+
+-   [] Decide the Routes
+-   [] Add React Router and Create the Route specific components
+
+### 5. UI Components
 
 -   [ ] Signup/Login form (username, password)
 -   [ ] Notes dashboard (list + create + edit)
 -   [ ] Modal/dialog for new/edit note
 -   [ ] Feedback for login/signup errors
 
-### 5. State & Logic
+### 6. State & Logic
 
 -   [ ] Use React Context or Redux for auth state
 -   [ ] Encrypt/decrypt notes in the browser before sending/after receiving
@@ -63,7 +68,7 @@ Express.js Server
 
 ## ⚙️ BACKEND (Express.js)
 
-### 6. Endpoints
+### 7. Endpoints
 
 -   [ ] `POST /signup` — Save encrypted `R`, salt
 -   [ ] `POST /login` — Validate decrypted `R`

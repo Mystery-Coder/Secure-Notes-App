@@ -2,7 +2,7 @@ html,
 body {
     height: 100%;
     margin: 0;
-    background-color: rgb(255, 170, 60);
+    /* background-color: rgb(195, 192, 192); */
 }
 
 /* Main container */
@@ -18,4 +18,15 @@ body {
 
 button {
     width: 300px;
+}
+
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    /* filter: brightness(0.5) contrast(1.2) saturate(1.5); */
 }
