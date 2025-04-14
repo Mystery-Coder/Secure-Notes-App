@@ -14,6 +14,8 @@ const buttonStyle = {
     fontSize: 28,
 };
 function App() {
+    const [count, setCount] = useState(0);
+
     return (
         <>
             <video autoPlay loop muted playsInline className="bg-video">
@@ -33,7 +35,6 @@ function App() {
                 >
                     Secure Notes
                 </Typography>
-
                 <Button variant="contained" color="primary" sx={buttonStyle}>
                     Register
                 </Button>

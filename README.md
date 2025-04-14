@@ -48,15 +48,14 @@ Express.js Server
 
 ### 4. Routing
 
--   [] Decide the Routes
--   [] Add React Router and Create the Route specific components
+-   [ ] Decide the Routes
+-   [ ] Add React Router and Create the Route specific components
 
 ### 5. UI Components
 
 -   [ ] Signup/Login form (username, password)
 -   [ ] Notes dashboard (list + create + edit)
 -   [ ] Modal/dialog for new/edit note
--   [ ] Feedback for login/signup errors
 
 ### 6. State & Logic
 
@@ -74,5 +73,3 @@ Express.js Server
 -   [ ] `POST /login` — Validate decrypted `R`
 -   [ ] `POST /notes` — Save encrypted note
 -   [ ] `GET /notes` — Return encrypted notes
--   [ ] `PUT /notes/:id` — Update note
--   [ ] `DELETE /notes/:id` — Delete note
