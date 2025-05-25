@@ -63,6 +63,7 @@ app.get("/user_exists/:username", (req, res) => {
 });
 
 app.get("/user_auth/:username", (req, res) => {
+    // NOTE: GET user_auth/:username to verfy, POST user_auth to add new user
     //Route to call to get randomString and password encrypted String
 
     const DB = JSON.parse(readFileSync(DB_FILENAME));
@@ -120,24 +121,26 @@ app.post("/user_auth", (req, res) => {
 app.post("/user_notes_post", (req, res) => {
     // Route to post the note of a user
     /* 
-	Data posted shld be like,
+	Data posted should be like
 	{
+        "username" : "--------------"
 		"uuid" : "------------------"
 		"title" : "-----------------"
 		"content" : "---------------"
+        "label" : "------------------"
 	}
 	
 	
 	*/
 
-    const { username, uuid, title, content } = req.body;
+    const { username, uuid, title, content, label } = req.body;
 
     const DB = JSON.parse(readFileSync(DB_FILENAME, "utf-8"));
-    const all_user_data = DB["user_data"];
 
-    all_user_data[username][uuid] = {
+    DB["user_data"][username][uuid] = {
         title,
         content,
+        label,
     };
 
     writeFileSync(DB_FILENAME, JSON.stringify(DB, null, 4));

@@ -1,16 +1,15 @@
 GET http://localhost:5500/ HTTP/1.1
 
-###
+### Check if a user exists
+GET http://localhost:5500/user_exists/user34341 HTTP/1.1
 
-GET http://localhost:5500/user_exists/user1 HTTP/1.1
-
-###
+### Get the encrypted password for user
 GET http://localhost:5500/user_auth/user1 HTTP/1.1
 
-###
+### Get all the user's notes
 GET http://localhost:5500/user_data/user1 HTTP/1.1
 
-###
+### Send new post of user to server
 POST http://localhost:5500/user_notes_post HTTP/1.1
 content-type: application/json
 
@@ -20,3 +19,5 @@ content-type: application/json
     "title": "fb8708075f770e7195b26c8f052b6ddc",
     "content": "29a0424b2f39d2a66584bb75dc880f886e0a529584f2b6f65db635cbd9e9123337e13722fb327db5d222718c4d813b50fb71cf4208d002fb6b429e4825a7767c"
 }
+
+###

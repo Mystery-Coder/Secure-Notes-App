@@ -1,48 +1,20 @@
-import { useState } from "react";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./components/LoginPage";
+import Dashboard from "./components/Dashboard";
+import NoteEditor from "./components/NoteEditor";
+import SharePage from "./components/SharePage";
 import "./App.css";
 
-const buttonStyle = {
-    width: "250px",
-    textTransform: "none",
-    borderWidth: "3px", // Make the border thicker
-    // borderColor: "primary.main", // Optional: force color
-    borderStyle: "solid", // Ensures it doesn't default to something weird,
-    borderRadius: "20px",
-    fontSize: 28,
-};
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
-        <>
-            <video autoPlay loop muted playsInline className="bg-video">
-                <source src="../public/matrix-bg-1.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
-
-            <div id="main">
-                <Typography
-                    variant="h2"
-                    color="initial"
-                    sx={{
-                        color: "white",
-                        background: "black",
-                        borderRadius: "20px",
-                    }}
-                >
-                    Secure Notes
-                </Typography>
-                <Button variant="contained" color="primary" sx={buttonStyle}>
-                    Register
-                </Button>
-                <Button variant="contained" color="success" sx={buttonStyle}>
-                    Login
-                </Button>
-            </div>
-        </>
+        <Router>
+            <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/edit-note" element={<NoteEditor />} />
+                <Route path="/share" element={<SharePage />} />
+            </Routes>
+        </Router>
     );
 }
 
