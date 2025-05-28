@@ -1,7 +1,7 @@
 GET http://localhost:5500/ HTTP/1.1
 
 ### Check if a user exists
-GET http://localhost:5500/user_exists/user34341 HTTP/1.1
+GET http://localhost:5500/user_exists/user1 HTTP/1.1
 
 ### Get the encrypted password for user
 GET http://localhost:5500/user_auth/user1 HTTP/1.1

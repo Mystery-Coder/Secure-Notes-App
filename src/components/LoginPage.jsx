@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { decryptText, verifyUserPassword } from "../utils";
 
@@ -86,7 +86,7 @@ function LoginPage() {
         flexDirection: "column",
         minHeight: "100vh",
         fontFamily: "Arial, sans-serif",
-        backgroundColor: "#0a2b4c", // Dark blue background
+        // backgroundColor: "#0a2b4c", // Dark blue background
         color: "#ffffff", // White text to contrast the dark blue background
         padding: "20px",
     };
@@ -167,79 +167,81 @@ function LoginPage() {
     const buttonActiveStyle = {
         backgroundColor: "#1f65d8",
     };
+    const textBoxStyle = {
+        backgroundColor: "rgba(10, 43, 76)", // Dark blue with transparency
+        padding: "20px",
+        borderRadius: "14px",
+        maxWidth: "800px",
+        marginTop: "20px",
+        marginBottom: "10px",
+    };
 
     return (
-        <div style={pageStyle}>
-            <div style={descriptionStyle}>
-                <h1 style={headingStyle}>
-                    Welcome to SecureNotes - Your Trusted Digital Vault
-                </h1>
-                <p style={textStyle}>
-                    At SecureNotes, we understand the importance of safeguarding
-                    your personal information. Our platform is designed to
-                    provide a safe, secure, and organized space to store your
-                    most critical data. Whether it's passwords, important notes,
-                    or any other sensitive information, SecureNotes ensures that
-                    your data remains under your control, available only to you.
-                </p>
-                <p style={textStyle}>
-                    With SecureNotes, you can categorize and securely store your
-                    notes across different fields - be it for work, personal
-                    use, or sensitive financial details. Our intuitive platform
-                    allows you to easily manage and access your notes whenever
-                    you need them, helping you stay organized and in control of
-                    your information.
-                </p>
-                <p style={textStyle}>
-                    In addition to storage, SecureNotes offers enhanced security
-                    by enabling you to share your notes with trusted
-                    individuals. We use a Diffie-Hellman-based approach for
-                    secure note sharing, ensuring that only the intended
-                    recipients can access your data. This adds an extra layer of
-                    protection when you need to collaborate or share vital
-                    information.
-                </p>
-                <p style={textStyle}>
-                    Security is our top priority. That's why we use AES-based
-                    encryption to safeguard your passwords and sensitive data.
-                    With this robust encryption technology, we ensure that no
-                    one - except you - can access your private notes.
-                </p>
-                <p style={textStyle}>
-                    With SecureNotes, you can trust that your most important
-                    information is protected with the highest standards of
-                    security, giving you peace of mind.
-                </p>
-            </div>
+        <>
+            <video autoPlay loop muted className="login-video-bg">
+                <source src="/matrix-bg-1.mp4" type="video/mp4" />
+            </video>
 
-            <div style={loginBoxStyle}>
-                <h2 style={loginTitleStyle}>Sign In</h2>
-                <input
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    style={inputStyle}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    style={inputStyle}
-                />
-                <button
-                    onClick={handleLogin}
-                    style={{
-                        ...buttonStyle,
-                        ":hover": buttonHoverStyle,
-                        ":active": buttonActiveStyle,
-                    }}
-                >
-                    Login
-                </button>
+            <div style={pageStyle}>
+                <div style={textBoxStyle}>
+                    <div style={descriptionStyle}>
+                        <h1 style={headingStyle}>
+                            Welcome to SecureNotes - Your Trusted Digital Vault
+                        </h1>
+                        <p style={textStyle}>
+                            At SecureNotes, we understand the importance of
+                            safeguarding your personal information. Our platform
+                            is designed to provide a safe, secure, and organized
+                            space to store your most critical data.
+                        </p>
+                        <p style={textStyle}>
+                            In addition to storage, SecureNotes offers enhanced
+                            security by enabling you to share your notes with
+                            trusted individuals. We use a Diffie-Hellman-based
+                            approach for secure note sharing, ensuring that only
+                            the intended recipients can access your data. This
+                            adds an extra layer of protection when you need to
+                            collaborate or share vital information.
+                        </p>
+                        <p style={textStyle}>
+                            Security is our top priority. That's why we use
+                            AES-based encryption to safeguard your passwords and
+                            sensitive data. With this robust encryption
+                            technology, we ensure that no one - except you - can
+                            access your private notes.
+                        </p>
+                    </div>
+                </div>
+
+                <div style={loginBoxStyle}>
+                    <h2 style={loginTitleStyle}>Sign In</h2>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        style={inputStyle}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        style={inputStyle}
+                    />
+                    <button
+                        onClick={handleLogin}
+                        style={{
+                            ...buttonStyle,
+                            ":hover": buttonHoverStyle,
+                            ":active": buttonActiveStyle,
+                        }}
+                    >
+                        Login
+                    </button>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

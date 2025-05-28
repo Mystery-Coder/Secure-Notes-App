@@ -10,6 +10,9 @@ function Dashboard() {
         if (location.state?.notes) {
             console.log("Received notes:", location.state.notes);
             setNotes(location.state.notes);
+            /*
+                Notes look like this 
+            */
         } else {
             console.warn("No notes found in location.state");
         }
@@ -141,7 +144,7 @@ function Dashboard() {
 
                 <div className="sidebar-section">
                     <h4>Recently Accessed</h4>
-                    {recentlyAccessed.map((id) => {
+                    {/* {recentlyAccessed.map((id) => {
                         const note = notes.find((note) => note.id === id);
                         return note ? (
                             <div
@@ -153,7 +156,7 @@ function Dashboard() {
                                 {note.title}
                             </div>
                         ) : null;
-                    })}
+                    })} */}
                 </div>
             </div>
 
@@ -177,27 +180,27 @@ function Dashboard() {
                 </div>
 
                 <div className="notes-list">
-                    {/* {notes.map((note) => (
+                    {Object.keys(notes).map((id) => (
                         <div
-                            key={note.id}
+                            key={notes[id]}
                             className="note-card"
-                            onClick={() => handleEditNote(note.id)}
+                            onClick={() => handleEditNote(notes[id])}
                         >
-                            <h3>{note.title}</h3>
-                            <p>{note.content}</p>
+                            <h3>{notes[id].title}</h3>
+                            <p>{notes[id].content}</p>
                             <button
                                 className="delete-note-btn"
                                 style={{ marginTop: "10px" }}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleDeleteNote(note.id);
+                                    handleDeleteNote(notes[id]);
                                 }}
                             >
                                 Delete
                             </button>
                         </div>
-                    ))} */}
-                    {JSON.stringify(notes, null, 2)}
+                    ))}
+                    {/* {JSON.stringify(notes, null, 2)} */}
                 </div>
 
                 <div className="add-note-btn-container">
