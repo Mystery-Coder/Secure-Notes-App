@@ -4,46 +4,40 @@ import { useNavigate, useLocation } from "react-router-dom";
 function Dashboard() {
     const navigate = useNavigate();
     const location = useLocation();
+    const [notes, setNotes] = useState(location.state?.notes || {});
+    const [currentUser, setCurrentUser] = useState(
+        localStorage.getItem("currentUser")
+    );
 
     // console.log(location.state?.notes);
     useEffect(() => {
         if (location.state?.notes) {
-            console.log("Received notes:", location.state.notes);
+            // console.log("Received notes:", location.state.notes);
             setNotes(location.state.notes);
             /*
-                Notes look like this 
+                notes look like this,
+                
+                {
+                    "id-1" : {
+                        'title' : DECRYPTED,
+                        'content' : DECRYPTED
+                    },
+                    'id-2' : {
+                        'title' : DECRYPTED,
+                        'content' : DECRYPTED    
+                    }
+                }
             */
         } else {
             console.warn("No notes found in location.state");
         }
     }, [location.state]);
 
-    const [notes, setNotes] = useState(location.state?.notes || []);
-
-    const [profilePhoto, setProfilePhoto] = useState("default-profile.jpg");
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [currentUser, setCurrentUser] = useState(
-        localStorage.getItem("currentUser")
-    );
-    const [recentlyAccessed, setRecentlyAccessed] = useState([]);
-
     useEffect(() => {
         if (!currentUser || notes.length === 0) {
             navigate("/");
         }
-    }, [navigate, currentUser, notes]);
-
-    useEffect(() => {
-        const recentNotes =
-            JSON.parse(localStorage.getItem("recentlyAccessed")) || [];
-        setRecentlyAccessed(recentNotes);
-
-        const storedPhotos =
-            JSON.parse(localStorage.getItem("profilePhotos")) || {};
-        if (storedPhotos[currentUser]) {
-            setProfilePhoto(storedPhotos[currentUser]);
-        }
-    }, [currentUser]);
+    }, [navigate, currentUser]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -59,40 +53,15 @@ function Dashboard() {
         navigate("/");
     };
 
-    const handleProfilePhotoUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const photoURL = reader.result;
-                setProfilePhoto(photoURL);
-                const storedPhotos =
-                    JSON.parse(localStorage.getItem("profilePhotos")) || {};
-                storedPhotos[currentUser] = photoURL;
-                localStorage.setItem(
-                    "profilePhotos",
-                    JSON.stringify(storedPhotos)
-                );
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
-    };
-
     const handleEditNote = (id) => {
-        const updatedRecentlyAccessed = [
-            id,
-            ...recentlyAccessed.filter((n) => n !== id),
-        ].slice(0, 5);
-        setRecentlyAccessed(updatedRecentlyAccessed);
-        localStorage.setItem(
-            "recentlyAccessed",
-            JSON.stringify(updatedRecentlyAccessed)
-        );
-        navigate(`/edit-note?id=${id}`);
+        console.log(`Editing note of id ${id}`);
+
+        navigate(`/edit-note`, {
+            state: {
+                notes,
+                id,
+            },
+        });
     };
 
     const handleDeleteNote = (id) => {
@@ -102,70 +71,9 @@ function Dashboard() {
 
     return (
         <div className="notes-page">
-            <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-                <div className="sidebar-profile">
-                    <button
-                        className="close-sidebar-btn"
-                        onClick={toggleSidebar}
-                        style={{
-                            float: "right",
-                            background: "transparent",
-                            color: "white",
-                            border: "none",
-                            fontSize: "1.5rem",
-                            cursor: "pointer",
-                        }}
-                    >
-                        x
-                    </button>
-
-                    <img
-                        src={profilePhoto}
-                        alt="Profile"
-                        className="profile-photo"
-                    />
-                    <h3>{currentUser}</h3>
-
-                    <div className="file-upload-container">
-                        <input
-                            type="file"
-                            id="file-upload"
-                            onChange={handleProfilePhotoUpload}
-                            style={{ display: "none" }}
-                        />
-                        <label
-                            htmlFor="file-upload"
-                            className="file-upload-label"
-                        >
-                            Choose File
-                        </label>
-                    </div>
-                </div>
-
-                <div className="sidebar-section">
-                    <h4>Recently Accessed</h4>
-                    {/* {recentlyAccessed.map((id) => {
-                        const note = notes.find((note) => note.id === id);
-                        return note ? (
-                            <div
-                                key={id}
-                                className="note-label recently-accessed-label"
-                                style={{ cursor: "pointer" }}
-                                onClick={() => handleEditNote(id)}
-                            >
-                                {note.title}
-                            </div>
-                        ) : null;
-                    })} */}
-                </div>
-            </div>
-
             <div className="main-content">
                 <div className="header">
-                    <button className="menu-btn" onClick={toggleSidebar}>
-                        &#9776;
-                    </button>
-                    <h2>{`Welcome, ${currentUser}`}</h2>
+                    <h2>{currentUser}</h2>
                     <div style={{ display: "flex", gap: "10px" }}>
                         <button
                             className="share-btn"
@@ -182,9 +90,9 @@ function Dashboard() {
                 <div className="notes-list">
                     {Object.keys(notes).map((id) => (
                         <div
-                            key={notes[id]}
+                            key={id}
                             className="note-card"
-                            onClick={() => handleEditNote(notes[id])}
+                            onClick={() => handleEditNote(id)}
                         >
                             <h3>{notes[id].title}</h3>
                             <p>{notes[id].content}</p>
@@ -193,7 +101,7 @@ function Dashboard() {
                                 style={{ marginTop: "10px" }}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    handleDeleteNote(notes[id]);
+                                    handleDeleteNote(id);
                                 }}
                             >
                                 Delete

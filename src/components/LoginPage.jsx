@@ -62,7 +62,7 @@ function LoginPage() {
                             };
                         })
                     );
-                    console.log(decNotes);
+                    // console.log(decNotes);
                     console.log("Going to dashboard ");
 
                     navigate("/dashboard", {
